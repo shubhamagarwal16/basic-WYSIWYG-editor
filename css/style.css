@@ -1,0 +1,14 @@
+.mainContainer {
+  width: 200px;
+  min-height: 200px;
+  border: 1px solid black;
+}
+.containerHeader {
+  margin: 5px;
+  border: 1px solid #aaa;
+  background-color: #ccc;
+}
+.inputArea {
+  width: 200px;
+  min-height: 200px;
+}
