@@ -1,35 +1,56 @@
 .mainContainer {
   min-width: 200px;
   min-height: 200px;
-  border: 1px solid #999;
-  border-radius: 4px;
+  border: 1px solid #d1d1d1;
+  /* border: 1px solid #999; */
+  /* border-radius: 4px; */
   margin: 3px;
   box-sizing: border-box;
 }
 .containerHeader {
   padding: 5px;
-  border: 1px solid #aaa;
-  background-color: #ccc;
-  border-radius: 4px 4px 0px 0px;
+  /* border: 1px solid #aaa; */
+  border-bottom: 1px solid #d1d1d1;
+  background-color: rgb(248, 248, 248);
+  /* background-color: #ccc; */
+  /* border-radius: 4px 4px 0px 0px; */
 }
 .inputArea {
   min-height: 200px;
   padding: 5px;
 }
+.inputArea:active {
+  border: none;
+}
 .btn2 {
-  border: 1px solid #eee;
+  font-weight: bold;
+  border: none;
   padding: 5px 5px;
-  margin: 2px;
-  background-color: #ccf;
-  border-radius: 3px;
+  /* margin: 2px; */
+  background-color: unset;
+  /* border-radius: 3px; */
   min-width: 21px;
   cursor: pointer;
+  font-size: 14px;
+}
+.btn2:hover {
+  /* background-color: rgb(186, 206, 247); */
+  background-color: rgb(229, 229, 229);
+}
+.colorBtn {
+  vertical-align: middle;
+  margin-left: 2px;
 }
 .charCountContainer {
   float: right;
 }
 .charCountContainer .charCountInput {
   max-width: 55px;
+}
+.charCountContainer .charCountInput::-webkit-inner-spin-button,
+.charCountContainer .charCountInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  /* margin: 0;  */
 }
 .charCountContainer .charCountCkBox {
   vertical-align: middle;

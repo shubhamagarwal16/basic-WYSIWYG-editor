@@ -7,7 +7,7 @@ if (!editorMain.length) {
 } else if (editorMain.length > 1) {
   editorInit();
 } else {
-  editorUI("");
+  editorUI(editorMain[0], 0);
 }
 
 function editorInit() {
@@ -28,7 +28,7 @@ function editorUI(editor, index = 0) {
   addHeader(mainContainer, index);
 
   const inputArea = document.createElement("div");
-  inputArea.setAttribute("contentEditable", "");
+  inputArea.setAttribute("contentEditable", true);
   inputArea.appendChild(
     document.createTextNode("A simple text without errors")
   );
@@ -54,7 +54,7 @@ function addHeader(editor, index) {
 
   //   ========================= BOLD BUTTON =============================
   const boldBtn = document.createElement("button");
-  boldBtn.innerHTML = "B";
+  boldBtn.innerHTML = '<i class="fa fa-bold" aria-hidden="true"></i>';
   boldBtn.classList.add("btn2");
   //   boldBtn.classList.add("btn-secondary");
   boldBtn.classList.add("boldBtn");
@@ -64,7 +64,7 @@ function addHeader(editor, index) {
 
   //   ========================= ITALIC BUTTON =============================
   const italicBtn = document.createElement("button");
-  italicBtn.innerHTML = "I";
+  italicBtn.innerHTML = '<i class="fa fa-italic" aria-hidden="true"></i>';
   italicBtn.classList.add("btn2");
   //   italicBtn.classList.add("btn-secondary");
   italicBtn.classList.add("italicBtn");
@@ -76,7 +76,7 @@ function addHeader(editor, index) {
 
   //   ========================= UNDERLINE BUTTON =============================
   const underlineBtn = document.createElement("button");
-  underlineBtn.innerHTML = "U";
+  underlineBtn.innerHTML = '<i class="fa fa-underline" aria-hidden="true"></i>';
   underlineBtn.classList.add("btn2");
   //   underlineBtn.classList.add("btn-secondary");
   underlineBtn.classList.add("underlineBtn");
@@ -88,7 +88,7 @@ function addHeader(editor, index) {
 
   //   ========================= LINK BUTTON =============================
   const linkBtn = document.createElement("button");
-  linkBtn.innerHTML = "A";
+  linkBtn.innerHTML = '<i class="fa fa-link" aria-hidden="true"></i>';
   linkBtn.classList.add("btn2");
   //   linkBtn.classList.add("btn-secondary");
   linkBtn.classList.add("LinkBtn");
@@ -113,7 +113,6 @@ function addHeader(editor, index) {
   charCountInput.type = "number";
   charCountInput.classList.add("charCountInput");
   charCountInput.setAttribute("disabled", true);
-  charCountInput.style.webkitAppearance = "none";
   charCountInput.setAttribute("title", "Enter character count");
 
   charCountInput.addEventListener("change", event => {
@@ -128,8 +127,23 @@ function addHeader(editor, index) {
   });
 
   charCountCkBox.insertAdjacentElement("afterend", charCountInput);
-
   editorHeader.appendChild(charCountContainer);
+
+  //   ========================= Color Picker =============================
+  const colorPicker = document.createElement("input");
+  colorPicker.type = "color";
+  // colorPicker.classList.add("btn2");
+  colorPicker.classList.add("colorBtn");
+  colorPicker.setAttribute("title", "Color Picker");
+  colorPicker.addEventListener("change", event => {
+    // console.log(event.target.value);
+    if (event.target && event.target.value)
+      performClickAction(event, "color", event.target.value);
+  });
+
+  editorHeader.appendChild(colorPicker);
+
+  // ===============================================================================
 
   editor.appendChild(editorHeader);
 }
@@ -158,6 +172,9 @@ function performClickAction(e, action, value = "") {
       break;
     case "link":
       document.execCommand("createLink", false, value);
+      break;
+    case "color":
+      document.execCommand("foreColor", false, value);
       break;
   }
 }
