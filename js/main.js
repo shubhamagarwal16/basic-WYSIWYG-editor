@@ -40,7 +40,7 @@ function editorUI(editor, index = 0) {
   mainContainer.appendChild(inputArea);
 
   editor.insertAdjacentElement("afterend", mainContainer);
-
+  afterEditorIsCreated();
   console.log("here");
 }
 
@@ -51,6 +51,46 @@ function addHeader(editor, index) {
   }
   const editorHeader = document.createElement("div");
   editorHeader.classList.add("containerHeader");
+
+  //   ========================= HEADING DROPDOWN =============================
+  let isparagraphDrpdwnOpen = false;
+  const headingDrpDwnContainer = document.createElement("div");
+  headingDrpDwnContainer.classList.add("paragraphDropdownContainer");
+
+  const headingDrpDwnButton = document.createElement("button");
+  headingDrpDwnButton.setAttribute("title", "Heading");
+  headingDrpDwnButton.classList.add("paragraphDropdownButton");
+  headingDrpDwnButton.innerHTML =
+    '<span>Paragraph</span><i class="fa fa-angle-down" aria-hidden="true"></i>';
+  headingDrpDwnButton.addEventListener("click", event => {
+    event.preventDefault();
+    let displayValue = "block";
+    if (isparagraphDrpdwnOpen) displayValue = "none";
+
+    document.getElementById(
+      `paragraphbuttonDropdown${index}`
+    ).style.display = displayValue;
+
+    isparagraphDrpdwnOpen = !isparagraphDrpdwnOpen;
+  });
+
+  const paragraphbuttonDropdown = document.createElement("ul");
+  paragraphbuttonDropdown.setAttribute("id", `paragraphbuttonDropdown${index}`);
+  paragraphbuttonDropdown.classList.add("paragraphbuttonDropdown");
+  paragraphbuttonDropdown.innerHTML = `
+  <li paraDrpDwnData="paragraph" >Paragraph</li>
+  <li paraDrpDwnData="heading1" ><h1>Heading 1</h1></li>
+  <li paraDrpDwnData="heading2" ><h2>Heading 2</h2></li>
+  <li paraDrpDwnData="heading3" ><h3>Heading 3</h3></li>
+  <li paraDrpDwnData="heading4" ><h4>Heading 4</h4></li>
+  <li paraDrpDwnData="heading5" ><h5>Heading 5</h5></li>
+  <li paraDrpDwnData="heading6" ><h6>Heading 6</h6></li>
+  `;
+
+  headingDrpDwnContainer.appendChild(headingDrpDwnButton);
+  headingDrpDwnContainer.appendChild(paragraphbuttonDropdown);
+
+  editorHeader.appendChild(headingDrpDwnContainer);
 
   //   ========================= BOLD BUTTON =============================
   const boldBtn = document.createElement("button");
@@ -148,6 +188,15 @@ function addHeader(editor, index) {
   editor.appendChild(editorHeader);
 }
 
+function afterEditorIsCreated() {
+  document
+    .querySelector(".paragraphbuttonDropdown")
+    .addEventListener("click", event => {
+      console.log(event);
+      performClickAction(event, "underline");
+    });
+}
+
 function performClickAction(e, action, value = "") {
   e.preventDefault();
   console.log({ action });
@@ -178,3 +227,14 @@ function performClickAction(e, action, value = "") {
       break;
   }
 }
+
+// var aa = false;
+// function drpdwn(e) {
+//   e.preventDefault();
+//   console.log(aa, "====");
+//   if (aa)
+//     document.getElementById("paragraphbuttonDropdown").style.display = "block";
+//   else
+//     document.getElementById("paragraphbuttonDropdown").style.display = "none";
+//   aa = !aa;
+// }
