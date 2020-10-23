@@ -66,10 +66,20 @@ function addHeader(editor, index) {
     event.preventDefault();
     let displayValue = "block";
     if (isparagraphDrpdwnOpen) displayValue = "none";
+    else {
+      document.body.classList.add("mainOverlay");
+    }
 
     document.getElementById(
       `paragraphbuttonDropdown${index}`
     ).style.display = displayValue;
+
+    if (!isparagraphDrpdwnOpen) {
+      document.addEventListener('click', function () {
+        console.log("overlay");
+        document.body.classList.remove('mainOverlay');
+      })
+    }
 
     isparagraphDrpdwnOpen = !isparagraphDrpdwnOpen;
   });
